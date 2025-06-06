@@ -17,12 +17,11 @@ interface NewsArticle {
   description: string;
   image: string;
   tags: string[];
-  slug?: string; // Para URLs amigáveis vindas do WordPress
-  author?: string; // Campos adicionais para API
+  slug?: string;
+  author?: string;
   excerpt?: string;
   publishedAt?: string;
 }
-
 
 // 📊 DADOS MOCKADOS - Estrutura preparada para API
 const mockNews: NewsArticle[] = [
@@ -57,7 +56,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1511886929837-354d827aae26?w=800&h=600&fit=crop&crop=center",
     tags: ["Futebol"]
   },
-  
   // Atletismo
   {
     id: 4,
@@ -89,7 +87,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1594736797933-d0ccba2b7acc?w=800&h=600&fit=crop&crop=center",
     tags: ["Atletismo"]
   },
-  
   // Basquetebol
   {
     id: 7,
@@ -121,7 +118,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?w=800&h=600&fit=crop&crop=center",
     tags: ["Basquetebol"]
   },
-  
   // Bilhar
   {
     id: 10,
@@ -153,7 +149,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center",
     tags: ["Bilhar"]
   },
-  
   // Boccia
   {
     id: 13,
@@ -185,7 +180,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1529156069728-b4dbe9f00db0?w=800&h=600&fit=crop&crop=center",
     tags: ["Boccia"]
   },
-  
   // Futsal
   {
     id: 16,
@@ -199,7 +193,7 @@ const mockNews: NewsArticle[] = [
   },
   {
     id: 17,
-    category: "Futsal",
+    category: "Futsal", 
     team: "SC Braga",
     date: "19 Jan 2025",
     title: "Goleada na Liga Placard",
@@ -217,7 +211,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&crop=center",
     tags: ["Futsal"]
   },
-  
   // Kickboxing | Boxe | Muay Thai
   {
     id: 19,
@@ -249,7 +242,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1555597673-b21d5c935865?w=800&h=600&fit=crop&crop=center",
     tags: ["Muay Thai"]
   },
-  
   // Natação
   {
     id: 22,
@@ -281,7 +273,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center",
     tags: ["Natação"]
   },
-  
   // Taekwondo
   {
     id: 25,
@@ -313,7 +304,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&h=600&fit=crop&crop=center",
     tags: ["Taekwondo"]
   },
-  
   // Voleibol
   {
     id: 28,
@@ -345,7 +335,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=800&h=600&fit=crop&crop=center",
     tags: ["Voleibol"]
   },
-  
   // Karaté
   {
     id: 31,
@@ -377,7 +366,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&h=600&fit=crop&crop=center",
     tags: ["Karaté"]
   },
-  
   // Badminton
   {
     id: 34,
@@ -409,7 +397,6 @@ const mockNews: NewsArticle[] = [
     image: "https://images.unsplash.com/photo-1594736797933-d0ccba2b7acc?w=800&h=600&fit=crop&crop=center",
     tags: ["Badminton"]
   },
-  
   // Esports
   {
     id: 37,
@@ -443,7 +430,7 @@ const mockNews: NewsArticle[] = [
   }
 ];
 
-// 🏆 LISTA DE CATEGORIAS (preparada para vir de API)
+// 🏆 LISTA DE CATEGORIAS (todas as 12 do componente original)
 const categoriesList: string[] = [
   'Futebol',
   'Atletismo',
@@ -460,7 +447,179 @@ const categoriesList: string[] = [
   'Esports'
 ];
 
-// 🎯 COMPONENTE: Filtro de Categorias com Setas Customizadas
+// 🎯 COMPONENTE: Filtro Mobile
+const MobileCategoriesFilter = ({ categories, activeFilter, handleFilterChange }: {
+  categories: string[];
+  activeFilter: string;
+  handleFilterChange: (category: string) => void;
+}) => {
+  return (
+    <div className="bg-black py-3">
+      <div className="overflow-x-auto">
+        <div className="flex px-4 min-w-max">
+          {categories.map((category, index) => (
+            <React.Fragment key={category}>
+              <button
+                className={`
+                  px-3 py-2 text-xs font-bold uppercase whitespace-nowrap transition-all
+                  ${activeFilter === category 
+                    ? 'bg-[#C00D1E] text-white' 
+                    : 'bg-transparent text-white'
+                  }
+                `}
+                onClick={() => handleFilterChange(category)}
+              >
+                {category}
+              </button>
+              {index < categories.length - 1 && (
+                <div className="w-px bg-white mx-2 self-stretch opacity-50" />
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// 🎯 COMPONENTE: Carrossel Mobile de Notícias
+const MobileNewsCarousel = ({ articles, activeFilter }: {
+  articles: NewsArticle[];
+  activeFilter: string;
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % articles.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + articles.length) % articles.length);
+  };
+
+  // Função para swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    }
+    if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
+  // Reset do índice quando muda a categoria
+  React.useEffect(() => {
+    setCurrentIndex(0);
+  }, [activeFilter]);
+
+  if (articles.length === 0) {
+    return (
+      <div className="bg-black text-white text-center py-16">
+        <p>Nenhuma notícia encontrada para esta modalidade</p>
+      </div>
+    );
+  }
+
+  const currentArticle = articles[currentIndex];
+
+  return (
+    <div className="bg-black relative">
+      {/* Container do carrossel */}
+      <div 
+        className="relative w-full h-[400px] overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* Imagem de fundo */}
+        <Image
+          src={currentArticle.image}
+          alt={currentArticle.title}
+          fill
+          className="object-cover"
+        />
+        
+        {/* Overlay escuro */}
+        <div className="absolute inset-0 bg-black/60" />
+        
+        {/* Conteúdo sobreposto */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+          {/* Categoria */}
+          <div className="bg-[#C00D1E] text-white text-xs font-bold px-2 py-1 mb-3 inline-block uppercase">
+            {currentArticle.category}
+          </div>
+          
+          {/* Título */}
+          <h3 className="text-white font-bold text-lg leading-tight mb-2">
+            {currentArticle.title}
+          </h3>
+          
+          {/* Data */}
+          <div className="text-gray-300 text-sm">
+            {currentArticle.date}
+          </div>
+        </div>
+      </div>
+
+      {/* Setas de navegação */}
+      {articles.length > 1 && (
+        <>
+          {/* Seta esquerda */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-all z-10"
+          >
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          {/* Seta direita */}
+          <button
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-all z-10"
+          >
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </>
+      )}
+
+      {/* Indicadores de página */}
+      {articles.length > 1 && (
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+          {articles.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === currentIndex ? 'bg-white' : 'bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// 🎯 COMPONENTE: Filtro Desktop (original)
 const CategoriesFilter = ({ categories, activeFilter, handleFilterChange }: {
   categories: string[];
   activeFilter: string;
@@ -468,7 +627,7 @@ const CategoriesFilter = ({ categories, activeFilter, handleFilterChange }: {
 }) => {
   const [currentOffset, setCurrentOffset] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [hasNavigated, setHasNavigated] = useState(false); // Nova state para controlar exibição da seta esquerda
+  const [hasNavigated, setHasNavigated] = useState(false);
   const categoriesToShow = 6;
 
   const getWrappedIndex = (index: number) => {
@@ -489,7 +648,7 @@ const CategoriesFilter = ({ categories, activeFilter, handleFilterChange }: {
   const moveNext = () => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setHasNavigated(true); // Ativa exibição da seta esquerda após primeiro clique
+    setHasNavigated(true);
     setCurrentOffset(prev => prev + 1);
     setTimeout(() => setIsAnimating(false), 300);
   };
@@ -508,10 +667,8 @@ const CategoriesFilter = ({ categories, activeFilter, handleFilterChange }: {
       animate={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.6 }}
     >
-      {/* Container principal com padding lateral para as setas */}
       <div className="h-full flex items-center relative">
         
-        {/* Área amarela - Container das Categorias centralizado */}
         <div className="flex-1 flex items-center justify-center overflow-hidden h-full">
           <motion.div 
             className="flex gap-10 h-full"
@@ -537,7 +694,6 @@ const CategoriesFilter = ({ categories, activeFilter, handleFilterChange }: {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {/* Quebra inteligente para nomes longos */}
                   <span className="text-center leading-tight">
                     {category.length > 12 ? (
                       category.split(' ').length > 1 ? (
@@ -557,7 +713,6 @@ const CategoriesFilter = ({ categories, activeFilter, handleFilterChange }: {
           </motion.div>
         </div>
 
-        {/* Seta Esquerda - Posição absoluta na área azul esquerda */}
         {hasNavigated && (
           <motion.button 
             onClick={movePrev}
@@ -582,7 +737,6 @@ const CategoriesFilter = ({ categories, activeFilter, handleFilterChange }: {
           </motion.button>
         )}
 
-        {/* Seta Direita - Posição absoluta na área azul direita */}
         <motion.button 
           onClick={moveNext}
           disabled={isAnimating}
@@ -605,34 +759,29 @@ const CategoriesFilter = ({ categories, activeFilter, handleFilterChange }: {
   );
 };
 
-// 🎯 HOOK CUSTOMIZADO: Gerenciamento de notícias (preparado para API)
+// 🎯 HOOK CUSTOMIZADO: Gerenciamento de notícias
 const useNewsData = (category: string) => {
-  // 🚀 Futuramente: substituir por chamada de API
-  // const { data, loading, error } = useFetch(`/api/news?category=${category}`);
-  
   const filteredNews = mockNews.filter(news => news.category === category);
   
   return {
     featuredArticle: filteredNews[0] || null,
     sideArticles: filteredNews.slice(1, 3),
     allArticles: filteredNews,
-    loading: false, // Para compatibilidade futura
+    loading: false,
     error: null
   };
 };
 
-// 🏆 COMPONENTE PRINCIPAL - Estrutura igual ao Highlights
+// 🏆 COMPONENTE PRINCIPAL
 const SportsNews = () => {
   const [activeFilter, setActiveFilter] = useState('Futebol');
   
-  // 🎯 Hook customizado para dados
   const { featuredArticle, sideArticles, allArticles, loading, error } = useNewsData(activeFilter);
 
   const handleFilterChange = (categorySelected: string) => {
     setActiveFilter(categorySelected);
   };
 
-  // 🔥 LOADING STATE
   if (loading) {
     return (
       <div className="bg-black/95 text-white p-4 sm:p-8 my-4 min-h-screen flex items-center justify-center">
@@ -644,7 +793,6 @@ const SportsNews = () => {
     );
   }
 
-  // 🚨 ERROR STATE
   if (error) {
     return (
       <div className="bg-black/95 text-white p-4 sm:p-8 my-4 min-h-screen flex items-center justify-center">
@@ -663,175 +811,186 @@ const SportsNews = () => {
 
   return (
     <div className="w-full min-h-full my-4">
-  {/* Header da seção */}
-  <div className="py-4 bg-white">
-    <h1 className="px-24 mt-12 text-2xl font-bold uppercase tracking-wider">MODALIDADES</h1>
-  </div>
+      {/* Header da seção - Desktop */}
+      <div className="hidden md:block max-w-7xl mx-auto pt-8">
+        <h1 className="pb-4 mt-12 text-2xl font-bold uppercase tracking-wider">MODALIDADES</h1>
+      </div>
 
-      {/* Barra de navegação de categorias */}
-      <CategoriesFilter 
-        categories={categoriesList}
-        activeFilter={activeFilter}
-        handleFilterChange={handleFilterChange}
-      />
+      {/* Mobile Layout */}
+      <div className="block md:hidden my-[14px]">
+        {/* Header Mobile */}
+        <div className="bg-black px-4 py-4">
+          <h1 className="text-xl font-bold uppercase text-white">MODALIDADES</h1>
+        </div>
 
-      {/* 🎯 CONTAINER PRINCIPAL - Estrutura igual ao Highlights */}
-      <div className="bg-white text-white pt-4 pb-0 sm:p-8 mt-4 mb-0 px-4">
-        <div className="max-w-7xl mx-auto">
-          {allArticles.length > 0 ? (
-            <>
-              {/* 🏗️ Layout Flexbox - IGUAL AO HIGHLIGHTS */}
-              <motion.div 
-                className="flex flex-col lg:flex-row gap-4 lg:gap-8 lg:items-start"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
-              >
-                {/* 🎯 Card Principal (Esquerda) - ESTRUTURA HIGHLIGHTS */}
-                {featuredArticle && (
-                  <motion.div 
-                    className="flex-1 lg:flex-[1]"
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                  >
-                    <div className="relative">
-                      {/* Imagem Principal */}
-                      <div className="relative w-full h-[200px] lg:h-[315px] overflow-hidden group">
-                        <Image
-                          src={featuredArticle.image}
-                          alt={featuredArticle.title}
-                          fill
-                          className="object-cover scale-105 group-hover:scale-100 transition-transform duration-300"
-                        />
-                      </div>
-                      
-                      {/* Conteúdo abaixo da imagem */}
-                      <div className="mt-4">
-                        {/* Meta informações - Modalidade + Team + Data na mesma linha */}
-                        <div className="flex items-center text-[#C00D1E] text-sm font-semibold mb-2">
-                          <span>{featuredArticle.category}</span>
-                          <span className="mx-2">•</span>
-                          <span>{featuredArticle.team}</span>
-                          <span className="mx-2">•</span>
-                          <span>{featuredArticle.date}</span>
-                        </div>
-                        
-                        {/* Título - IGUAL AO HIGHLIGHTS */}
-                        <h2 className="text-black text-xl lg:text-2xl w-full lg:w-3/4 font-bold mb-2 leading-tight">
-                          {featuredArticle.title}
-                        </h2>
-                        
-                        {/* Descrição */}
-                        <p className="text-black text-sm mb-4">
-                          {featuredArticle.description}
-                        </p>
-                        
-                        {/* Botão VER MAIS - IGUAL AO HIGHLIGHTS */}
-                        <Button className="bg-red-600 hover:bg-red-700 text-white px-4 py-0 text-sm font-medium mb-4 cursor-pointer">
-                          <Link href={`/modalidades/${activeFilter.toLowerCase().replace(/\s+/g, '-').replace(/\|/g, '')}`}>
-                            VER MAIS
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
+        {/* Filtro Mobile */}
+        <MobileCategoriesFilter 
+          categories={categoriesList}
+          activeFilter={activeFilter}
+          handleFilterChange={handleFilterChange}
+        />
 
-                {/* 🎯 Cards Laterais (Direita) - ESTRUTURA HIGHLIGHTS */}
-                {sideArticles.length > 0 && (
-                  <motion.div 
-                    className="flex-1 lg:flex-[1] flex flex-col gap-4 lg:gap-8 lg:h-[515px]"
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    {sideArticles.slice(0, 2).map((article, index) => (
-                      <motion.div 
-                        key={article.id} 
-                        className="relative flex flex-col lg:flex-row gap-4 lg:h-1/2"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                      >
-                        {/* Imagem - IGUAL AO HIGHLIGHTS */}
-                        <div className="relative w-full h-[150px] lg:h-full overflow-hidden group">
+        {/* Carrossel de Notícias Mobile */}
+        <MobileNewsCarousel 
+          articles={allArticles}
+          activeFilter={activeFilter}
+        />
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:block">
+        {/* Barra de navegação de categorias - Desktop */}
+        <CategoriesFilter 
+          categories={categoriesList}
+          activeFilter={activeFilter}
+          handleFilterChange={handleFilterChange}
+        />
+
+        {/* Container Principal Desktop */}
+        <div className="bg-white text-white pt-4 pb-0 sm:p-8 mt-4 mb-0 px-4">
+          <div className="max-w-7xl mx-auto">
+            {allArticles.length > 0 ? (
+              <>
+                <motion.div 
+                  className="flex flex-col lg:flex-row gap-4 lg:gap-8 lg:items-start"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  {/* Card Principal Desktop */}
+                  {featuredArticle && (
+                    <motion.div 
+                      className="flex-1 lg:flex-[1]"
+                      initial={{ opacity: 0, x: -50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                      <div className="relative">
+                        <div className="relative w-full h-[200px] lg:h-[315px] overflow-hidden group">
                           <Image
-                            src={article.image}
-                            alt={article.title}
+                            src={featuredArticle.image}
+                            alt={featuredArticle.title}
                             fill
                             className="object-cover scale-105 group-hover:scale-100 transition-transform duration-300"
                           />
                         </div>
                         
-                        {/* Conteúdo abaixo da imagem - IGUAL AO HIGHLIGHTS */}
-                        <div className="mt-3">
-                          {/* Meta informações - Modalidade acima do team e data */}
-                          <div className="text-[#C00D1E] text-xs font-semibold mb-2">
-                            <div className="mb-1">{article.category}</div>
-                            <div className="flex items-center">
-                              <span>{article.team}</span>
-                              <span className="mx-2">•</span>
-                              <span>{article.date}</span>
-                            </div>
+                        <div className="mt-4">
+                          <div className="flex items-center text-[#C00D1E] text-sm font-semibold mb-2">
+                            <span>{featuredArticle.category}</span>
+                            <span className="mx-2">•</span>
+                            <span>{featuredArticle.team}</span>
+                            <span className="mx-2">•</span>
+                            <span>{featuredArticle.date}</span>
                           </div>
                           
-                          {/* Título */}
-                          <h3 className="text-black text-xl font-bold mb-2 leading-tight w-full lg:w-3/4">
-                            {article.title}
-                          </h3>
+                          <h2 className="text-black text-xl lg:text-2xl w-full lg:w-3/4 font-bold mb-2 leading-tight">
+                            {featuredArticle.title}
+                          </h2>
                           
-                          {/* Descrição */}
-                          <p className="text-black text-xs mb-3">
-                            {article.description}
+                          <p className="text-black text-sm mb-4">
+                            {featuredArticle.description}
                           </p>
                           
-                          {/* Botão VER MAIS - IGUAL AO HIGHLIGHTS */}
-                          <Button className="bg-red-600 hover:bg-red-700 text-white px-4 py-0 text-xs font-medium mb-3 cursor-pointer">
+                          <Button className="bg-red-600 hover:bg-red-700 text-white px-4 py-0 text-sm font-medium mb-4 cursor-pointer">
                             <Link href={`/modalidades/${activeFilter.toLowerCase().replace(/\s+/g, '-').replace(/\|/g, '')}`}>
                               VER MAIS
                             </Link>
                           </Button>
                         </div>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
-              </motion.div>
+                      </div>
+                    </motion.div>
+                  )}
 
-              {/* Botão Ver Tudo */}
+                  {/* Cards Laterais Desktop */}
+                  {sideArticles.length > 0 && (
+                    <motion.div 
+                      className="flex-1 lg:flex-[1] flex flex-col gap-4 lg:gap-8 lg:h-[515px]"
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.4 }}
+                    >
+                      {sideArticles.slice(0, 2).map((article, index) => (
+                        <motion.div 
+                          key={article.id} 
+                          className="relative flex flex-col lg:flex-row gap-4 lg:h-1/2"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                        >
+                          <div className="relative w-full h-[150px] lg:h-full overflow-hidden group">
+                            <Image
+                              src={article.image}
+                              alt={article.title}
+                              fill
+                              className="object-cover scale-105 group-hover:scale-100 transition-transform duration-300"
+                            />
+                          </div>
+                          
+                          <div className="mt-3">
+                            <div className="text-[#C00D1E] text-xs font-semibold mb-2">
+                              <div className="mb-1">{article.category}</div>
+                              <div className="flex items-center">
+                                <span>{article.team}</span>
+                                <span className="mx-2">•</span>
+                                <span>{article.date}</span>
+                              </div>
+                            </div>
+                            
+                            <h3 className="text-black text-xl font-bold mb-2 leading-tight w-full lg:w-3/4">
+                              {article.title}
+                            </h3>
+                            
+                            <p className="text-black text-xs mb-3">
+                              {article.description}
+                            </p>
+                            
+                            <Button className="bg-red-600 hover:bg-red-700 text-white px-4 py-0 text-xs font-medium mb-3 cursor-pointer">
+                              <Link href={`/modalidades/${activeFilter.toLowerCase().replace(/\s+/g, '-').replace(/\|/g, '')}`}>
+                                VER MAIS
+                              </Link>
+                            </Button>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+                </motion.div>
+
+                {/* Botão Ver Tudo - Desktop */}
+                <motion.div 
+                  className="flex justify-center mt-12"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  <Link 
+                    href={`/modalidades/${activeFilter.toLowerCase().replace(/\s+/g, '-').replace(/\|/g, '')}`}
+                    className="inline-flex items-center gap-2 text-black text-sm font-bold transition-all duration-300"
+                  >
+                    Ver tudo
+                    <ChevronRight size={16} />
+                  </Link>
+                </motion.div>
+              </>
+            ) : (
+              /* Estado vazio */
               <motion.div 
-                className="flex justify-center mt-12"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
+                className="text-center py-16"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
               >
-                <Link 
-  href={`/modalidades/${activeFilter.toLowerCase().replace(/\s+/g, '-').replace(/\|/g, '')}`}
-  className="inline-flex items-center gap-2 text-black text-sm font-bold transition-all duration-300"
->
-  Ver tudo
-  <ChevronRight size={16} />
-</Link>
+                <div className="text-gray-400 text-6xl mb-4">🏆</div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  Nenhuma notícia encontrada
+                </h3>
+                <p className="text-gray-400">
+                  Ainda não temos notícias para esta modalidade
+                </p>
               </motion.div>
-            </>
-          ) : (
-            /* 🏆 Estado vazio */
-            <motion.div 
-              className="text-center py-16"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="text-gray-400 text-6xl mb-4">🏆</div>
-              <h3 className="text-xl font-semibold text-white mb-2">
-                Nenhuma notícia encontrada
-              </h3>
-              <p className="text-gray-400">
-                Ainda não temos notícias para esta modalidade
-              </p>
-            </motion.div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>

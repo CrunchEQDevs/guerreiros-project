@@ -1,9 +1,8 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 
 interface SlideData {
   id: number;
@@ -11,78 +10,99 @@ interface SlideData {
   alt?: string;
   title?: string;
   description?: string;
+  link: string;
 }
 
-interface HeroContent {
-  subtitle?: string;
+interface NewsItem {
+  id: number;
+  image: string;
+  alt?: string;
   title: string;
   description: string;
-  newsletter?: {
-    placeholder?: string;
-    buttonText?: string;
-    privacyText?: string;
-  };
+  link: string;
 }
 
 interface HeroCarouselProps {
   slides?: SlideData[];
-  content?: HeroContent;
+  news?: NewsItem[];
   autoplayDelay?: number;
-  onNewsletterSubmit?: (email: string) => void;
-  mobileTitle?: string;
 }
 
 export default function HeroCarousel({ 
   slides,
-  content,
-  autoplayDelay = 4000,
-  onNewsletterSubmit,
-  mobileTitle = "DESTAQUES"
+  news,
+  autoplayDelay = 4000
 }: HeroCarouselProps) {
-  // Fallback para imagens padrão
+  // Fallback para imagens padrão do carrossel principal
   const defaultSlides: SlideData[] = [
     { 
       id: 1, 
       image: "/hero1.svg", 
       alt: "Slide 1",
       title: "Carlos Carvalhal: \"O resultado ajusta-se ao que se passou\"",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      link: "/destaque/1"
     },
     { 
       id: 2, 
       image: "/hero2.jpg", 
       alt: "Slide 2",
       title: "Análise do último jogo",
-      description: "Principais momentos e estatísticas da partida."
+      description: "Principais momentos e estatísticas da partida.",
+      link: "/destaque/2"
     }, 
     { 
       id: 3, 
       image: "/hero3.jpg", 
       alt: "Slide 3",
       title: "Preparação para o próximo confronto",
-      description: "Como a equipa se prepara para o desafio seguinte."
+      description: "Como a equipa se prepara para o desafio seguinte.",
+      link: "/destaque/3"
     }
   ];
 
-  // Conteúdo padrão
-  const defaultContent: HeroContent = {
-    subtitle: "O nosso blog",
-    title: "Notícias e Entrevistas",
-    description: "Subscreva para receber as últimas novidades sobre o Sporting Clube de Braga, entrevistas exclusivas, análises de jogos e muito mais.",
-    newsletter: {
-      placeholder: "Escreva o seu e-mail aqui",
-      buttonText: "Subscrever",
-      privacyText: "Cuidamos dos teus dados conforme a nossa política de privacidade."
+  // Fallback para notícias laterais
+  const defaultNews: NewsItem[] = [
+    {
+      id: 1,
+      image: "/hero1.svg",
+      alt: "Notícia 1",
+      title: "Missão cumprida frente ao Nacional",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      link: "/noticia/1"
+    },
+    {
+      id: 2,
+      image: "/hero2.jpg",
+      alt: "Notícia 2", 
+      title: "Missão cumprida frente ao Nacional",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      link: "/noticia/2"
+    },
+    {
+      id: 3,
+      image: "/hero3.jpg",
+      alt: "Notícia 3",
+      title: "Missão cumprida frente ao Nacional", 
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      link: "/noticia/3"
+    },
+    {
+      id: 4,
+      image: "/hero1.svg",
+      alt: "Notícia 4",
+      title: "Missão cumprida frente ao Nacional",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      link: "/noticia/4"
     }
-  };
+  ];
 
   const images = slides && slides.length > 0 ? slides : defaultSlides;
-  const heroContent = content || defaultContent;
+  const newsItems = news && news.length > 0 ? news : defaultNews;
 
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [email, setEmail] = useState('')
 
-  // Autoplay - muda conforme o delay configurado
+  // Autoplay para o carrossel principal
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => 
@@ -97,223 +117,272 @@ export default function HeroCarousel({
     setCurrentIndex(index)
   }
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (email.trim() && onNewsletterSubmit) {
-      onNewsletterSubmit(email.trim())
-      setEmail('') // Limpar campo após envio
-    }
-  }
-
   return (
-    <>
-      {/* Layout Mobile (até 768px) */}
-      <div className="w-screen md:hidden">
-        {/* Faixa vermelha com título */}
-        <div 
-          className="w-screen flex items-center" 
-          style={{ 
-            height: '56px', 
-            paddingTop: '11px', 
-            paddingBottom: '11px',
-            backgroundColor: '#C00D1E',
-            boxShadow: '0px -2px 4px 0px rgba(0, 0, 0, 0.25) inset, 0px 2px 4px 0px rgba(0, 0, 0, 0.25) inset'
-          }}
-        >
-          <div className="px-6">
-            <h2 className="text-white font-extrabold" style={{ fontSize: '25px', fontWeight: '800' }}>
-              {mobileTitle}
-            </h2>
-          </div>
+    <div className="w-full">
+      {/* Faixa vermelha superior */}
+      <div className="w-full bg-[#C00D1E] relative">
+        {/* Mobile: Header simples */}
+        <div className="md:hidden px-4 py-6">
+          <h1 className="text-white font-extrabold text-2xl sm:text-3xl">
+            DESTAQUES
+          </h1>
         </div>
 
-        {/* Container do carrossel */}
-        <div className="w-screen px-5 bg-white" style={{ marginTop: '8px', marginBottom: '4px' }}>
-          <div className="relative overflow-hidden" style={{ height: '200px' }}>
-            
-            {/* Container das imagens */}
-            <div 
-              className="flex h-full transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {images.map((slide, index) => (
-                <div key={slide.id || index} className="min-w-full h-full relative">
-                  <Image
-                    src={slide.image}
-                    alt={slide.alt || `Slide ${index + 1}`}
-                    fill
-                    className="object-cover"
-                    priority={index === 0}
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Overlay com conteúdo */}
-            <div className="absolute bottom-0 left-0 right-0" style={{ marginLeft: '15px', marginRight: '15px' }}>
-              <div 
-                className="bg-black/70 text-white px-3 py-2 flex flex-col"
-                style={{ height: '83px' }}
-              >
-                <h3 
-                  className="font-bold text-white line-clamp-2"
-                  style={{ 
-                    fontSize: '14px', 
-                    fontWeight: '700',
-                    lineHeight: '11.765px',
-                    marginTop: '8px',
-                    marginBottom: '14px'
-                  }}
-                >
-                  {images[currentIndex].title}
-                </h3>
-                <p 
-                  className="text-gray-200 line-clamp-2"
-                  style={{ 
-                    fontSize: '10px', 
-                    fontWeight: '400',
-                    lineHeight: '11.765px'
-                  }}
-                >
-                  {images[currentIndex].description}
-                </p>
-              </div>
-            </div>
-
+        {/* Desktop: Layout original responsivo */}
+        <div className="hidden md:flex items-end relative h-32 lg:h-40 pb-3 lg:pb-4">
+          {/* DESTAQUES - lado esquerdo */}
+          <div className="ml-4 lg:ml-12 xl:ml-24">
+            <h1 className="text-white font-extrabold text-4xl lg:text-5xl xl:text-7xl leading-none">
+              DESTAQUES
+            </h1>
           </div>
 
-          {/* Dots/Bolinhas */}
-          <div className="flex justify-center space-x-2 py-4">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex 
-                    ? 'bg-red-600' 
-                    : 'bg-black hover:bg-gray-800'
-                }`}
-                aria-label={`Ir para slide ${index + 1}`}
-              />
-            ))}
+          {/* ÚLTIMAS NOTÍCIAS - alinhado com início das notícias */}
+          <div className="absolute bottom-3 lg:bottom-4 left-0 right-0">
+            <div className="flex gap-4 lg:gap-6 mx-4 lg:mx-12 xl:mx-24">
+              <div className="flex-1 max-w-4xl"></div>
+              <div className="w-80 lg:w-96 xl:w-[470px]">
+                <div className="bg-black flex items-center h-8 lg:h-11 px-3 lg:px-4 w-64 lg:w-80 xl:w-[470px]">
+                  <h2 className="text-white font-extrabold text-sm lg:text-lg xl:text-2xl">
+                    ÚLTIMAS NOTÍCIAS
+                  </h2>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Layout Desktop (768px+) */}
-      <div className="relative h-64 sm:h-80 md:h-96 lg:h-120 xl:h-140 2xl:h-180 w-screen bg-red-600 my-2 hidden md:block">
-        
-        {/* Camada 2: Carousel - Com padding apenas vertical */}
-        <div className="absolute inset-0 pt-4 pb-2">
-          <div className="relative w-full h-full overflow-hidden">
-            
-            {/* Container das imagens */}
-            <div 
-              className="flex h-full transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {images.map((slide, index) => (
-                <div key={slide.id || index} className="min-w-full h-full relative">
-                  <Image
-                    src={slide.image}
-                    alt={slide.alt || `Slide ${index + 1}`}
-                    fill
-                    className="object-cover"
-                    priority={index === 0}
-                  />
-                </div>
-              ))}
-            </div>
+      {/* Container principal com conteúdo */}
+      <div className="w-full">
+        {/* Layout Mobile (≤768px) */}
+        <div className="md:hidden">
+          {/* Carrossel principal - Mobile */}
+          <div className="mx-4 mt-4">
+            <div className="relative overflow-hidden bg-gray-200 h-48 sm:h-64">
+              {/* Container das imagens do carrossel */}
+              <div 
+                className="flex h-full transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              >
+                {images.map((slide, index) => (
+                  <Link 
+                    key={slide.id || index} 
+                    href={slide.link}
+                    className="min-w-full h-full relative block hover:opacity-95 transition-opacity"
+                  >
+                    <Image
+                      src={slide.image}
+                      alt={slide.alt || `Slide ${index + 1}`}
+                      fill
+                      className="object-cover"
+                      priority={index === 0}
+                    />
+                  </Link>
+                ))}
+              </div>
 
-            {/* Camada 2.5: SVG Blur Overlay - Alturas aumentadas */}
-            <div className="absolute bottom-0 left-0 right-0 z-10 overflow-hidden h-20 sm:h-28 md:h-36 lg:h-48 xl:h-64 2xl:h-80">
-              <div className="relative w-full h-full">
-                <Image
-                  src="/blur-hero.svg"
-                  alt="Blur overlay"
-                  fill
-                  className="object-cover object-top"
-                  style={{ 
-                    width: '100%',
-                    transform: 'scale(1.1)',
-                    transformOrigin: 'top center'
-                  }}
-                />
+              {/* Overlay inferior - Mobile (bottom 0) */}
+              <div className="absolute bottom-0 left-0 right-0 bg-black/80 p-3">
+                <div className="text-white font-bold text-sm sm:text-base leading-tight mb-1">
+                  {images[currentIndex].title}
+                </div>
+                <div className="text-white text-xs opacity-90">
+                  {images[currentIndex].description}
+                </div>
               </div>
             </div>
 
-            {/* Dots/Bolinhas - Responsivos */}
-            <div className="absolute bottom-1 sm:bottom-2 md:bottom-3 lg:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-40">
+            {/* Dots de navegação - Mobile (fora da imagem) */}
+            <div className="flex justify-center space-x-1 mt-3">
               {images.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                    index === currentIndex 
-                      ? 'bg-white' 
-                      : 'bg-white/50 hover:bg-white/75'
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                    index === currentIndex ? 'bg-[#C00D1E]' : 'bg-gray-400'
                   }`}
                   aria-label={`Ir para slide ${index + 1}`}
                 />
               ))}
             </div>
-
           </div>
-        </div>
 
-        {/* Camada 3: Conteúdo sobreposto - Responsivo melhorado */}
-        <div className="absolute inset-0 flex items-end justify-start pb-2 pl-2 sm:pb-4 sm:pl-4 md:pb-6 md:pl-8 lg:pb-8 lg:pl-12 xl:pl-16 2xl:pl-24 z-30">
-          <div className="max-w-[280px] sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg text-white">
-            
-            {/* Título pequeno */}
-            {heroContent.subtitle && (
-              <p className="text-xs sm:text-sm mb-1 sm:mb-2 text-red-200">
-                {heroContent.subtitle}
-              </p>
-            )}
-            
-            {/* Título principal responsivo */}
-            <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-1 sm:mb-2 md:mb-3 lg:mb-4 leading-tight">
-              {heroContent.title}
-            </h1>
-            
-            {/* Descrição responsiva */}
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg mb-2 sm:mb-3 md:mb-4 lg:mb-6 text-gray-200 leading-relaxed">
-              {heroContent.description}
-            </p>
-            
-            {/* Newsletter - Layout responsivo */}
-            {heroContent.newsletter && (
-              <>
-                <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-1 sm:gap-2 mb-1 sm:mb-2 md:mb-3">
-                  <Input 
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder={heroContent.newsletter.placeholder}
-                    className="bg-white/90 text-black placeholder:text-gray-600 border-none flex-1 text-xs sm:text-sm md:text-base h-8 sm:h-9 md:h-10"
-                    required
+          {/* Header "ÚLTIMAS NOTÍCIAS" - Mobile (largura total) */}
+          <div className="bg-black w-full mt-5 mb-0 h-10 flex items-center px-4">
+            <h2 
+              className="text-[#C00D1E] font-extrabold"
+              style={{ 
+                fontSize: '16px',
+                fontWeight: '800'
+              }}
+            >
+              ÚLTIMAS NOTÍCIAS
+            </h2>
+          </div>
+
+          {/* Lista de notícias - Mobile */}
+          <div className="mx-4 mt-5 pb-8 space-y-2">
+            {newsItems.slice(0, 4).map((newsItem, index) => (
+              <Link 
+                key={newsItem.id}
+                href={newsItem.link}
+                className={`flex hover:opacity-80 transition-opacity w-full relative ${
+                  index === 0 ? 'bg-black' : 'bg-[#F2F2F2]'
+                }`}
+                style={{ height: '103px' }}
+              >
+                {/* Imagem da notícia */}
+                <div 
+                  className="relative overflow-hidden bg-gray-200 flex-shrink-0"
+                  style={{ 
+                    width: '152px', 
+                    height: '86px',
+                    marginTop: '8.5px',
+                    marginLeft: '10px'
+                  }}
+                >
+                  <Image
+                    src={newsItem.image}
+                    alt={newsItem.alt || `Notícia ${index + 1}`}
+                    fill
+                    className="object-cover"
                   />
-                  <Button 
-                    type="submit"
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold px-3 sm:px-4 md:px-6 h-8 sm:h-9 md:h-10 text-xs sm:text-sm md:text-base whitespace-nowrap"
+                </div>
+
+                {/* Conteúdo da notícia */}
+                <div className="flex-1 relative px-3 py-2">
+                  {/* Título */}
+                  <h4 
+                    className={`font-bold absolute top-2 left-3 right-3 ${
+                      index === 0 ? 'text-white' : 'text-[#C00D1E]'
+                    }`}
+                    style={{ 
+                      fontSize: '16px',
+                      fontWeight: '700',
+                      lineHeight: '17px'
+                    }}
                   >
-                    {heroContent.newsletter.buttonText}
-                  </Button>
-                </form>
-                
-                {/* Texto legal responsivo */}
-                {heroContent.newsletter.privacyText && (
-                  <p className="text-xs text-gray-300 leading-relaxed">
-                    {heroContent.newsletter.privacyText}
+                    {newsItem.title}
+                  </h4>
+                  
+                  {/* Subtítulo */}
+                  <p 
+                    className={`absolute left-3 right-3 ${
+                      index === 0 ? 'text-gray-300' : 'text-gray-600'
+                    }`}
+                    style={{ 
+                      fontSize: '11px',
+                      fontWeight: '400',
+                      lineHeight: '12px',
+                      top: '42px'
+                    }}
+                  >
+                    {newsItem.description}
                   </p>
-                )}
-              </>
-            )}
+                  
+                  {/* Data e hora */}
+                  <div 
+                    className={`absolute bottom-2 left-3 ${
+                      index === 0 ? 'text-gray-300' : 'text-gray-500'
+                    }`}
+                    style={{ 
+                      fontSize: '11px',
+                      fontWeight: '400',
+                      lineHeight: '12px'
+                    }}
+                  >
+                    14 de Mar. 2025 | 11:20
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
-        
+
+        {/* Layout Desktop (≥769px) */}
+        <div className="hidden md:flex gap-4 lg:gap-6 mx-4 lg:mx-12 xl:mx-24 mt-4 lg:mt-6">
+          {/* Destaque principal - Carrossel Desktop */}
+          <div className="relative overflow-hidden bg-gray-200 flex-1 max-w-4xl h-80 lg:h-96 xl:h-[475px]">
+            {/* Container das imagens do carrossel */}
+            <div 
+              className="flex h-full transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {images.map((slide, index) => (
+                <Link 
+                  key={slide.id || index} 
+                  href={slide.link}
+                  className="min-w-full h-full relative block hover:opacity-95 transition-opacity"
+                >
+                  <Image
+                    src={slide.image}
+                    alt={slide.alt || `Slide ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    priority={index === 0}
+                  />
+                </Link>
+              ))}
+            </div>
+
+            {/* Overlay inferior esquerdo - Desktop */}
+            <div className="absolute bottom-4 lg:bottom-8 left-4 lg:left-8 bg-black/80 p-4 lg:p-6 max-w-lg lg:max-w-xl">
+              <div className="text-white font-bold text-lg lg:text-2xl xl:text-3xl leading-tight mb-2 lg:mb-3">
+                {images[currentIndex].title}
+              </div>
+              <div className="text-white text-xs lg:text-sm opacity-90">
+                {images[currentIndex].description}
+              </div>
+            </div>
+
+            {/* Dots de navegação - Desktop */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex ? 'bg-[#C00D1E]' : 'bg-white/50 hover:bg-white/75'
+                  }`}
+                  aria-label={`Ir para slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Notícias laterais - Desktop */}
+          <div className="flex flex-col w-80 lg:w-96 xl:w-[470px] gap-4 lg:gap-6">
+            {newsItems.slice(0, 4).map((newsItem, index) => (
+              <Link 
+                key={newsItem.id}
+                href={newsItem.link}
+                className="flex gap-3 lg:gap-4 hover:opacity-80 transition-opacity h-20 lg:h-24 xl:h-[102px]"
+              >
+                {/* Imagem da notícia */}
+                <div className="relative overflow-hidden bg-gray-200 flex-shrink-0 w-32 lg:w-40 xl:w-[179px] h-full">
+                  <Image
+                    src={newsItem.image}
+                    alt={newsItem.alt || `Notícia ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Conteúdo da notícia */}
+                <div className="flex flex-col justify-center flex-1 min-w-0 gap-1 lg:gap-2">
+                  <h4 className="font-bold text-black text-sm lg:text-lg xl:text-xl leading-tight line-clamp-2">
+                    {newsItem.title}
+                  </h4>
+                  <p className="text-xs lg:text-sm text-gray-600 line-clamp-2">
+                    {newsItem.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
