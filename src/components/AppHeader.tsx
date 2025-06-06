@@ -121,8 +121,8 @@ export default function NavBar() {
             <Image
               src="/logo-circle.svg"
               alt="Logo Os Guerreiros"
-              width={20}
-              height={20}
+              width={50}
+              height={50}
               className="rounded-lg object-cover"
             />
             <h1 className="text-[20px] font-bold text-center leading-none mt-1">
@@ -483,16 +483,16 @@ export default function NavBar() {
         )}
       </div>
 
-      {/* DESKTOP LAYOUT (769px+) - Mantém o original */}
+      {/* DESKTOP LAYOUT (769px+) - Logo Corrigido */}
       <div className="hidden md:block">
-        {/* SEÇÃO 1: Logo centralizado */}
-        <div className="flex items-center justify-center py-4">
+        {/* SEÇÃO 1: Logo centralizado - CORRIGIDO */}
+        <div className="flex items-center justify-center py-6">
           <Image
             src="/logo-circle.svg"
             alt="Logo Os Guerreiros"
-            width={500}
-            height={300}
-            className="rounded-lg object-cover h-20 w-20"
+            width={80}
+            height={80}
+            className="object-contain"
           />
           <h1 className="text-2xl font-bold ml-3">
             Os Gverreiros <span className="text-[#C00D1E] font-bold">• Blog</span>

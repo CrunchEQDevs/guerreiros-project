@@ -108,12 +108,6 @@ export default function News() {
 
   return (
     <div className="relative">
-      <div className="max-w-7xl mx-auto px-4 pt-8">
-        <h2 className="text-xl font-bold">ÚLTIMAS NOTÍCIAS</h2>
-      </div>
-      
-      {/* Linha que ocupa toda a largura da tela */}
-      <div className='h-0.5 w-full bg-[#C00D1E] mb-8 mt-1'></div>
       
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-wrap gap-6">
@@ -133,7 +127,7 @@ export default function News() {
                   <Image
                     src={item.image}
                     alt={AD_CONFIG.alt}
-                    width={100}
+                     width={100}
                     height={100}
                     className="w-full h-full object-cover"
                   />
