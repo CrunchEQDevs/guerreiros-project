@@ -22,7 +22,7 @@ export default function SearchPage() {
           </h1>
           {searchTerm && (
             <p className="text-lg text-gray-600">
-              Você pesquisou por: <span className="font-semibold text-[#C00D1E]">"{searchTerm}"</span>
+              Você pesquisou por: <span className="font-semibold text-[#C00D1E]">&quot;{searchTerm}&quot;</span>
             </p>
           )}
         </div>
@@ -73,7 +73,7 @@ export default function SearchPage() {
             <div className="space-y-4">
               <div className="border-l-4 border-[#C00D1E] pl-4 py-2">
                 <h4 className="font-semibold text-gray-900 hover:text-[#C00D1E] cursor-pointer">
-                  Carlos Carvalhal: "O resultado ajusta-se ao que se passou"
+                  Carlos Carvalhal: &quot;O resultado ajusta-se ao que se passou&quot;
                 </h4>
                 <p className="text-sm text-gray-600 mt-1">
                   Declarações do treinador após a partida...

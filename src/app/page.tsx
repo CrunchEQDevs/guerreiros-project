@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 import NavBar from "@/components/AppHeader";
 import Footer from "@/components/AppFooter";
 import HeroCarousel from "@/components/Carousel";

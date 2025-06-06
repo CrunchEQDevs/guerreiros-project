@@ -1,13 +1,11 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Badge } from '@/components/ui/badge';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 // 🏗️ TIPOS PARA ESTRUTURA ROBUSTA (preparado para API)
 interface NewsArticle {
@@ -25,12 +23,6 @@ interface NewsArticle {
   publishedAt?: string;
 }
 
-interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  displayName: string;
-}
 
 // 📊 DADOS MOCKADOS - Estrutura preparada para API
 const mockNews: NewsArticle[] = [

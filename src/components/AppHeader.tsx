@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
-import { ChevronRight, Search, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { useState } from 'react';
 import { 
   Dialog, 

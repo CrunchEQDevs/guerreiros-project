@@ -1,4 +1,3 @@
-import { Calendar } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -131,9 +130,11 @@ export default function News() {
                   href={AD_CONFIG.link} 
                   className="block hover:opacity-90 transition-opacity h-full"
                 >
-                  <img
+                  <Image
                     src={item.image}
                     alt={AD_CONFIG.alt}
+                    width={100}
+                    height={100}
                     className="w-full h-full object-cover"
                   />
                 </Link>
@@ -146,9 +147,11 @@ export default function News() {
               >
                 {/* Image Container - Adicionado efeito hover com scale */}
                 <div className="relative aspect-video overflow-hidden">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.title}
+                    width={100}
+                    height={100}
                     className="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-300"
                   />
                 </div>
