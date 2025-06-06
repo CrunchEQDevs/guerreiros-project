@@ -20,21 +20,7 @@ interface NewsMobileProps {
   maxItems?: number;
 }
 
-// Categorias disponíveis
-const AVAILABLE_CATEGORIES = [
-  'Atletismo',
-  'Basquetebol', 
-  'Bilhar',
-  'Boccia',
-  'Futsal',
-  'Kickboxing',
-  'Natação',
-  'Taekwondo',
-  'Voleibol',
-  'Karaté',
-  'Badminton',
-  'Esports'
-];
+
 
 // Mock data baseado nos componentes existentes
 const postsFromAPI: NewsItem[] = [
