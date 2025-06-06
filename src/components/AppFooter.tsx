@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from "next/link";
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { Facebook, X, Instagram, Linkedin, Youtube } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -17,84 +16,99 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         
         {/* PRIMEIRA LINHA: Logo centralizado */}
-        <div className="flex items-center justify-center mb-6">
+        <div className="flex flex-col md:flex-row items-center justify-center mb-8 sm:mb-10 md:mb-12">
           <Image
             src="/footer-helmet.svg"
             alt="Logo Os Guerreiros"
-            width={80}
-            height={80}
-            className="rounded-lg object-cover h-20 w-20"
+            width={60}
+            height={60}
+            className="rounded-lg object-cover h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 mb-2 md:mb-0 md:mr-3"
           />
-          <h1 className="text-2xl font-bold text-white ml-3">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-center md:text-left" style={{color: '#FFFFFF'}}>
             Os Gverreiros <span className="text-[#C00D1E] font-bold">• Blog</span>
           </h1>
         </div>
 
-        {/* SEGUNDA LINHA: Categorias, Sobre e Newsletter lado a lado */}
-        <div className="flex flex-col lg:flex-row justify-between gap-16 mb-8">
+        {/* CONTEÚDO PRINCIPAL: Mobile primeiro, depois desktop */}
+        <div className="space-y-8 md:space-y-0 md:flex md:flex-row md:justify-between md:gap-8 lg:gap-16 text-center md:text-left">
           
-          {/* Coluna SOBRE */}
-          <div className="text-white flex-1">
-            <div className="flex items-center mb-4">
+          {/* Coluna NEWSLETTER - Primeira no mobile, terceira no desktop */}
+          <div className="text-white md:order-3 md:flex-1 md:max-w-sm">
+            <div className="flex items-center justify-center md:justify-start mb-4">
               <div className="w-1 h-6 bg-[#C00D1E] rounded-full mr-3"></div>
-              <h2 className="text-lg font-bold text-white">SOBRE</h2>
+              <h2 className="text-lg font-bold" style={{fontSize: '18px', fontWeight: '700', color: '#FFFFFF'}}>NEWSLETTER</h2>
             </div>
-            <div className="space-y-2">
-              <Link 
-                href="#" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200"
+            <p className="mb-4" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
+              Subscreva a nossa newsletter e receba em primeira mão as nossas notícias
+            </p>
+            
+            <div className="flex gap-2 mb-3">
+              <Input 
+                placeholder="Escreva o seu e-mail aqui" 
+                className="border border-[#C00D1E] bg-transparent placeholder:text-gray-400 placeholder:text-xs flex-1 px-3 py-2 h-10 focus:outline-none focus:ring-0 focus:ring-offset-0 focus:shadow-none focus:border-[#C00D1E]"
+                style={{color: '#FFFFFF'}}
+              />
+              <Button 
+                className="bg-[#C00D1E] hover:bg-[#A00B18] transition-colors duration-200"
+                style={{
+                  width: '134px', 
+                  height: '38px', 
+                  fontSize: '16px', 
+                  fontWeight: '700',
+                  color: '#FFFFFF'
+                }}
               >
-                Política de privacidade e Cookies
-              </Link>
-              <Link 
-                href="#" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200"
-              >
-                Termos e Condições
-              </Link>
-              <Link 
-                href="#" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200"
-              >
-                Ficha Técnica
-              </Link>
+                Subscrever
+              </Button>
             </div>
+            
+            <p style={{fontSize: '10px', fontWeight: '300', color: '#FFFFFF'}}>
+              Ao subscrever estará a concordar com os nossos{' '}
+              <Link className="underline text-[#C00D1E] hover:text-white transition-colors duration-200" href="#">
+                Termos e condições
+              </Link>
+            </p>
           </div>
 
-          {/* Coluna CATEGORIAS */}
-          <div className="text-white flex-1">
-            <div className="flex items-center mb-4">
+          {/* Coluna CATEGORIAS - Segunda no mobile, segunda no desktop */}
+          <div className="text-white md:order-2 md:flex-1">
+            <div className="flex items-center justify-center md:justify-start mb-4">
               <div className="w-1 h-6 bg-[#C00D1E] rounded-full mr-3"></div>
-              <h2 className="text-lg font-bold text-white">CATEGORIAS</h2>
+              <h2 className="text-lg font-bold" style={{fontSize: '18px', fontWeight: '700', color: '#FFFFFF'}}>CATEGORIAS</h2>
             </div>
             <div className="space-y-2">
               <Link 
                 href="#" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200"
-              >
-                SC Braga solidário
-              </Link>
-              <Link 
-                href="#" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200"
-              >
-                Vídeos
-              </Link>
-              <Link 
-                href="#" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200"
-              >
-                Clube
-              </Link>
-              <Link 
-                href="#" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200"
+                className="block hover:text-[#C00D1E] transition-colors duration-200"
+                style={{fontSize: '16px', fontWeight: '600', color: '#FFFFFF'}}
               >
                 Futebol
               </Link>
               <Link 
                 href="#" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200"
+                className="block hover:text-[#C00D1E] transition-colors duration-200"
+                style={{fontSize: '16px', fontWeight: '600', color: '#FFFFFF'}}
+              >
+                SC Braga solidário
+              </Link>
+              <Link 
+                href="#" 
+                className="block hover:text-[#C00D1E] transition-colors duration-200"
+                style={{fontSize: '16px', fontWeight: '600', color: '#FFFFFF'}}
+              >
+                Vídeos
+              </Link>
+              <Link 
+                href="#" 
+                className="block hover:text-[#C00D1E] transition-colors duration-200"
+                style={{fontSize: '16px', fontWeight: '600', color: '#FFFFFF'}}
+              >
+                Clube
+              </Link>
+              <Link 
+                href="#" 
+                className="block hover:text-[#C00D1E] transition-colors duration-200"
+                style={{fontSize: '16px', fontWeight: '600', color: '#FFFFFF'}}
               >
                 Resultados
               </Link>
@@ -102,45 +116,53 @@ export default function Footer() {
               {/* Modalidades Accordion */}
               <Accordion type="single" collapsible>
                 <AccordionItem value="modalidades" className="border-none">
-                  <AccordionTrigger className="hover:no-underline p-0 text-gray-300 hover:text-white transition-colors duration-200 text-left justify-start">
-                    Modalidades
+                  <AccordionTrigger 
+                    className="hover:no-underline p-0 hover:text-[#C00D1E] transition-colors duration-200 text-center md:text-left justify-center md:justify-start [&>svg]:hidden"
+                    style={{fontSize: '16px', fontWeight: '600', color: '#FFFFFF'}}
+                  >
+                    <div className="flex items-center justify-center md:justify-start gap-2">
+                      <span>Modalidades</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none" className="transition-transform duration-200 data-[state=open]:rotate-180">
+                        <path d="M7.5 10L12.5 15L17.5 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
                   </AccordionTrigger>
                   <AccordionContent className="pt-2">
-                    <div className="grid grid-cols-1 gap-1 ml-4">
-                      <Link href="/atletismo" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                    <div className="grid grid-cols-1 gap-1 md:ml-4">
+                      <Link href="/atletismo" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Atletismo
                       </Link>
-                      <Link href="/basquetebol" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/basquetebol" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Basquetebol
                       </Link>
-                      <Link href="/bilhar" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/bilhar" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Bilhar
                       </Link>
-                      <Link href="/boccia" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/boccia" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Boccia
                       </Link>
-                      <Link href="/futsal" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/futsal" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Futsal
                       </Link>
-                      <Link href="/kickboxing" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/kickboxing" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Kickboxing | Boxe | Muay Thai
                       </Link>
-                      <Link href="/natacao" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/natacao" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Natação
                       </Link>
-                      <Link href="/taekwondo" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/taekwondo" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Taekwondo
                       </Link>
-                      <Link href="/voleibol" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/voleibol" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Voleibol
                       </Link>
-                      <Link href="/karate" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/karate" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Karaté
                       </Link>
-                      <Link href="/badminton" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/badminton" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Badminton
                       </Link>
-                      <Link href="/esports" className="block text-sm text-gray-400 hover:text-white transition-colors duration-200 py-1">
+                      <Link href="/esports" className="block hover:text-[#C00D1E] transition-colors duration-200 py-1" style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}>
                         Esports
                       </Link>
                     </div>
@@ -150,83 +172,129 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Coluna NEWSLETTER */}
-          <div className="text-white flex-1 max-w-sm">
-            <div className="flex items-center mb-4">
+          {/* Coluna SOBRE - Terceira no mobile, primeira no desktop */}
+          <div className="text-white md:order-1 md:flex-1">
+            <div className="flex items-center justify-center md:justify-start mb-4">
               <div className="w-1 h-6 bg-[#C00D1E] rounded-full mr-3"></div>
-              <h2 className="text-lg font-bold text-white">NEWSLETTER</h2>
+              <h2 className="text-lg font-bold" style={{fontSize: '18px', fontWeight: '700', color: '#FFFFFF'}}>SOBRE</h2>
             </div>
-            <p className="mb-4 text-gray-300">
-              Subscreva a nossa newsletter e receba em primeira mão as nossas notícias
-            </p>
-            
-            <div className="flex gap-2 mb-3">
-              <Input 
-                placeholder="Escreva o seu e-mail aqui" 
-                className="border border-[#C00D1E] bg-transparent text-white placeholder:text-gray-400 placeholder:text-xs flex-1 px-2 !focus:outline-none !focus:ring-0 !focus:ring-offset-0 !focus:shadow-none !focus:border-[#C00D1E]"
-              />
-              <Button className="bg-[#C00D1E] hover:bg-[#A00B18] text-white font-bold transition-colors duration-200">
-                Subscrever
-              </Button>
-            </div>
-            
-            <p className="text-sm text-gray-400">
-              Ao subscrever estará a concordar com os nossos{' '}
-              <Link className="underline text-[#C00D1E] hover:text-white transition-colors duration-200" href="#">
-                Termos e condições
-              </Link>
-            </p>
-          </div>
-
-          {/* Coluna REDES SOCIAIS */}
-          <div className="text-white flex-1">
-            <div className="flex items-center mb-4">
-              <div className="w-1 h-6 bg-[#C00D1E] rounded-full mr-3"></div>
-              <h2 className="text-lg font-bold text-white">REDES SOCIAIS</h2>
-            </div>
-            <div className="flex items-center gap-4">
+            <div className="space-y-2">
               <Link 
                 href="#" 
-                className="text-white hover:text-[#C00D1E] transition-colors duration-200"
+                className="block hover:text-[#C00D1E] transition-colors duration-200"
+                style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}
+              >
+                Ficha Técnica
+              </Link>
+              <Link 
+                href="#" 
+                className="block hover:text-[#C00D1E] transition-colors duration-200"
+                style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}
+              >
+                Termos e Condições
+              </Link>
+              <Link 
+                href="#" 
+                className="block hover:text-[#C00D1E] transition-colors duration-200"
+                style={{fontSize: '14px', fontWeight: '600', color: '#FFFFFF'}}
+              >
+                Política de privacidade e Cookies
+              </Link>
+            </div>
+          </div>
+
+          {/* Coluna REDES SOCIAIS - Quarta no mobile, quarta no desktop */}
+          <div className="text-white md:order-4 md:flex-1">
+            <div className="flex items-center justify-center md:justify-start mb-4">
+              <div className="w-1 h-6 bg-[#C00D1E] rounded-full mr-3"></div>
+              <h2 className="text-lg font-bold" style={{fontSize: '18px', fontWeight: '700', color: '#FFFFFF'}}>REDES SOCIAIS</h2>
+            </div>
+            <div className="flex items-center justify-center md:justify-start gap-4">
+              <Link 
+                href="#" 
+                className="hover:opacity-80 transition-opacity duration-200"
                 aria-label="Facebook"
               >
-                <Facebook className="w-6 h-6" />
+                <Image 
+                  src="/facebook.svg" 
+                  alt="Facebook" 
+                  width={24} 
+                  height={24} 
+                  className="w-5 h-5 sm:w-6 sm:h-6"
+                />
               </Link>
 
               <Link 
                 href="#" 
-                className="text-white hover:text-[#C00D1E] transition-colors duration-200"
+                className="hover:opacity-80 transition-opacity duration-200"
                 aria-label="X"
               >
-                <X className="w-6 h-6" />
+                <Image 
+                  src="/x.svg" 
+                  alt="X" 
+                  width={24} 
+                  height={24} 
+                  className="w-5 h-5 sm:w-6 sm:h-6"
+                />
               </Link>
 
               <Link 
                 href="#" 
-                className="text-white hover:text-[#C00D1E] transition-colors duration-200"
+                className="hover:opacity-80 transition-opacity duration-200"
                 aria-label="Instagram"
               >
-                <Instagram className="w-6 h-6" />
+                <Image 
+                  src="/instagram.svg" 
+                  alt="Instagram" 
+                  width={24} 
+                  height={24} 
+                  className="w-5 h-5 sm:w-6 sm:h-6"
+                />
               </Link>
 
               <Link 
                 href="#" 
-                className="text-white hover:text-[#C00D1E] transition-colors duration-200"
+                className="hover:opacity-80 transition-opacity duration-200"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-6 h-6" />
+                <Image 
+                  src="/linkedin.svg" 
+                  alt="LinkedIn" 
+                  width={24} 
+                  height={24} 
+                  className="w-5 h-5 sm:w-6 sm:h-6"
+                />
               </Link>
 
               <Link 
                 href="#" 
-                className="text-white hover:text-[#C00D1E] transition-colors duration-200"
+                className="hover:opacity-80 transition-opacity duration-200"
                 aria-label="YouTube"
               >
-                <Youtube className="w-6 h-6" />
+                <Image 
+                  src="/youtube.svg" 
+                  alt="YouTube" 
+                  width={24} 
+                  height={24} 
+                  className="w-5 h-5 sm:w-6 sm:h-6"
+                />
               </Link>
             </div>
           </div>
 
+        </div>
+
+        {/* PUBLICIDADE - Apenas no mobile */}
+        <div className="mt-12 mb-8 md:hidden">
+          <div className="w-full overflow-hidden">
+            <Image
+              src="/freebet-ads.svg"
+              alt="Publicidade FreeBet"
+              width={800}
+              height={100}
+              className="w-full h-auto object-cover object-center"
+            />
+          </div>
         </div>
         
       </div>
@@ -236,8 +304,8 @@ export default function Footer() {
 
       {/* COPYRIGHT: Volta para dentro do container */}
       <div className="max-w-7xl mx-auto px-4 pt-6 pb-4">
-        <div className="text-center text-white">
-          <p>Gverreiros © 2025</p>
+        <div className="text-center">
+          <p style={{color: '#FFFFFF'}}>Gverreiros © 2025</p>
         </div>
       </div>
 

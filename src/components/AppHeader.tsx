@@ -121,8 +121,8 @@ export default function NavBar() {
             <Image
               src="/logo-circle.svg"
               alt="Logo Os Guerreiros"
-              width={45}
-              height={50}
+              width={20}
+              height={20}
               className="rounded-lg object-cover"
             />
             <h1 className="text-[20px] font-bold text-center leading-none mt-1">
