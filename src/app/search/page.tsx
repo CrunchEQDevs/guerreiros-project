@@ -2,8 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 import NavBar from '@/components/AppHeader';
+import { Suspense } from 'react';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const searchTerm = searchParams.get('q');
   
@@ -142,5 +143,15 @@ export default function SearchPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-gray-600">Carregando...</div>
+    </div>}>
+      <SearchContent />
+    </Suspense>
   );
 }
