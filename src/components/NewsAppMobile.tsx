@@ -20,8 +20,6 @@ interface NewsMobileProps {
   maxItems?: number;
 }
 
-
-
 // Mock data baseado nos componentes existentes
 const postsFromAPI: NewsItem[] = [
   {
@@ -76,15 +74,15 @@ const postsFromAPI: NewsItem[] = [
   }
 ];
 
-// Configuração do anúncio - baseado no LastNews.tsx
+// Configuração do anúncio
 const AD_CONFIG = {
-  position: 5, // Posição no array (após as 5 notícias)
+  position: 5,
   image: '/moosh-ads.svg',
   link: '/moosh',
   alt: 'Powered by Moosh'
 };
 
-// Função que prepara os dados inserindo o anúncio - baseado no LastNews.tsx
+// Função que prepara os dados inserindo o anúncio
 function prepareNewsWithAd(posts: NewsItem[], config = AD_CONFIG): NewsItem[] {
   const advertisementItem: NewsItem = {
     id: 'ad-' + Date.now(),
@@ -139,7 +137,7 @@ export default function NewsMobile({
           const isLargeCard = isFirstNews || isLastNews;
 
           return item.type === 'advertisement' ? (
-            // Card de anúncio - baseado no LastNews.tsx
+            // Card de anúncio
             <Link 
               key={item.id}
               href={item.slug}
@@ -155,25 +153,27 @@ export default function NewsMobile({
               </div>
             </Link>
           ) : isLargeCard ? (
-            // Card GRANDE (primeiro e último) - baseado na imagem
+            // Card GRANDE (primeiro e último) - layout vertical
             <Link 
               key={item.id}
               href={`/noticia/${item.slug}`}
               className="block hover:opacity-80 transition-opacity"
             >
               <article className="bg-white overflow-hidden">
-                {/* Imagem grande no topo */}
-                <div className="relative w-full h-[200px] overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover"
-                  />
+                {/* Container da Imagem */}
+                <div className="w-full">
+                  <div className="relative w-full h-[200px] overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
                 
-                {/* Conteúdo abaixo da imagem */}
-                <div className="">
+                {/* Container do Texto */}
+                <div className="w-full p-0">
                   {/* Categoria */}
                   <div 
                     className="text-[#C00D1E] text-xs font-bold mb-2"
@@ -212,78 +212,66 @@ export default function NewsMobile({
               </article>
             </Link>
           ) : (
-            // Card PEQUENO (meio) - layout horizontal
+            // Card PEQUENO (meio) - layout horizontal responsivo
             <Link 
               key={item.id}
               href={`/noticia/${item.slug}`}
               className="block hover:opacity-80 transition-opacity"
             >
               <article 
-                className="flex items-center rounded my-[5px]" 
-                style={{ 
-                  backgroundColor: '#F2F2F2',
-                  height: '103px'
-                }}
+                className="flex items-center rounded my-[5px] min-h-[103px]" 
+                style={{ backgroundColor: '#F2F2F2' }}
               >
-                {/* Conteúdo da notícia - lado esquerdo */}
-                <div 
-                  className="flex-1 flex flex-col justify-center"
-                  style={{ 
-                    marginLeft: '10px',
-                    marginRight: '14px'
-                  }}
-                >
-                  {/* Categoria */}
+                {/* Container do Texto - 50% da largura */}
+                <div className="w-1/2 min-w-0 flex flex-col justify-between gap-2 px-2 pr-3">
+                  {/* Categoria - no topo */}
                   <div 
-                    className="text-[#C00D1E] text-xs font-bold mb-1"
+                    className="text-[#C00D1E] font-bold truncate"
                     style={{ 
-                      fontSize: '11px',
+                      fontSize: '10px',
                       fontWeight: '700'
                     }}
                   >
                     {item.category}
                   </div>
                   
-                  {/* Título */}
+                  {/* Título - no meio com mais espaço */}
                   <h3 
-                    className="text-black font-bold mb-2 leading-tight"
+                    className="text-black font-bold leading-tight flex-1"
                     style={{ 
-                      fontSize: '16px',
+                      fontSize: '14px',
                       fontWeight: '700',
-                      lineHeight: '17px'
+                      lineHeight: '15px'
                     }}
                   >
                     {item.title}
                   </h3>
                   
-                  {/* Data */}
+                  {/* Data - no final */}
                   <div 
-                    className="text-gray-500"
+                    className="text-gray-500 truncate"
                     style={{ 
-                      fontSize: '11px',
+                      fontSize: '10px',
                       fontWeight: '400',
-                      lineHeight: '12px'
+                      lineHeight: '11px'
                     }}
                   >
                     {item.date}
                   </div>
                 </div>
 
-                {/* Imagem - lado direito */}
-                <div 
-                  className="relative overflow-hidden bg-gray-200 flex-shrink-0 rounded-[3px]"
-                  style={{ 
-                    width: '152px', 
-                    height: '86px',
-                    marginRight: '20px'
-                  }}
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover rounded-[3px]"
-                  />
+                {/* Container da Imagem - 50% da largura */}
+                <div className="w-1/2 flex-shrink-0 p-2 pl-0">
+                  <div 
+                    className="relative w-full aspect-[152/86] overflow-hidden bg-gray-200 rounded-[3px]"
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover rounded-[3px]"
+                    />
+                  </div>
                 </div>
               </article>
             </Link>

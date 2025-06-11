@@ -24,10 +24,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script async src="//www.adplugg.com/serve/js/ad.js"></script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <script 
+          dangerouslySetInnerHTML={{
+            __html: `(AdPlug=window.AdPlug||[]).push({});`
+          }}
+        />
       </body>
     </html>
   );

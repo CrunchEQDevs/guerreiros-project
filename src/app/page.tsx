@@ -7,11 +7,15 @@ import News from "@/components/LastNews";
 import SportsNews from '@/components/SportsNews';
 import VideoSection from "@/components/Video";
 import NewsMobile from "@/components/NewsAppMobile";
+import AdBanner from "@/components/AdBanner";
+
 
 export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <NavBar />
+
+      <AdBanner/>
       
       {/* HeroCarousel FORA do container - largura total */}
       <HeroCarousel />
