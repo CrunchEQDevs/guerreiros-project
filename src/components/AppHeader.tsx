@@ -100,7 +100,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="w-full bg-[#FFFFFF99]">
+    <div className="w-full bg-[#FFFFFF99] sticky top-0 z-50 md:relative md:z-auto">
       
       {/* MOBILE LAYOUT (0-768px) */}
       <div className="md:hidden">

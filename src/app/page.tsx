@@ -9,13 +9,10 @@ import VideoSection from "@/components/Video";
 import NewsMobile from "@/components/NewsAppMobile";
 import AdBanner from "@/components/AdBanner";
 
-
 export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <NavBar />
-
-      <AdBanner/>
       
       {/* HeroCarousel FORA do container - largura total */}
       <HeroCarousel />
@@ -37,6 +34,7 @@ export default function Home() {
       </div>
       
       <SportsNews/>
+      <AdBanner/>
       <VideoSection/>
       <Footer />
     </div>

@@ -20,9 +20,9 @@ export default function Footer() {
           <Image
             src="/footer-helmet.svg"
             alt="Logo Os Guerreiros"
-            width={60}
-            height={60}
-            className="rounded-lg object-cover h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 mb-2 md:mb-0 md:mr-3"
+            width={79}
+            height={79}
+            className="rounded-lg object-cover w-[79px] h-[79px] md:h-20 md:w-20 mb-2 md:mb-0 md:mr-3"
           />
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-center md:text-left" style={{color: '#FFFFFF'}}>
             Os Gverreiros <span className="text-[#C00D1E] font-bold">• Blog</span>
